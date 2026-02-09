@@ -175,5 +175,5 @@ Please note that there is no official Service Level Agreement (SLA) for support 
 |------|-------------|
 | <a name="output_vault_cli_config"></a> [vault\_cli\_config](#output\_vault\_cli\_config) | Environment variables to configure the Vault CLI |
 | <a name="output_vault_load_balancer_name"></a> [vault\_load\_balancer\_name](#output\_vault\_load\_balancer\_name) | The DNS name of the load balancer. |
-| <a name="output_vault_load_balancer_security_group_id"></a> [vault\_load\_balancer\_security\_group\_id](#output\_vault\_load\_balancer\_security\_group\_id) | The ID of the load balancer security group. Allow ingress to this group on 8200 to access Vault through the LB. |
+| <a name="output_vault_load_balancer_security_group_id"></a> [vault\_load\_balancer\_security\_group\_id](#output\_vault\_load\_balancer\_security\_group\_id) | The ID of the load balancer security group. Allow ingress to this group on 8200 (or specified `var.vault_port_api`) to access Vault through the LB. |
 <!-- END_TF_DOCS -->
