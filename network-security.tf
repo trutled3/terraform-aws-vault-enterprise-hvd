@@ -52,7 +52,7 @@ resource "aws_security_group_rule" "ingress_vault_api" {
   to_port     = var.vault_port_api
   self        = true
   protocol    = "tcp"
-  description = "Allow Vault nodes to communicate with each on the API port for auto_join"
+  description = "Allow Vault nodes to communicate with each other on the API port for auto_join"
 
   security_group_id = aws_security_group.main[0].id
 }
