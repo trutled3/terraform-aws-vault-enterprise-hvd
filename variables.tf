@@ -546,3 +546,9 @@ variable "stickiness_enabled" {
   description = "Enable sticky sessions by client IP address for the load balancer."
   default     = true
 }
+
+variable "enable_cross_zone_load_balancing" {
+  type        = bool
+  description = "Enable cross-zone load balancing for the Network Load Balancer."
+  default     = false
+}
