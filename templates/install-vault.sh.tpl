@@ -421,7 +421,7 @@ function start_enable_vault {
 
 function configure_vault_cli {
   sudo bash -c "cat > /etc/profile.d/99-vault-cli-config.sh" <<EOF
-export VAULT_ADDR=https://127.0.0.1:8200
+export VAULT_ADDR=https://127.0.0.1:${vault_port_api}
 %{ if vault_fqdn != "" ~}
 export VAULT_TLS_SERVER_NAME="${vault_fqdn}"
 %{ endif ~}

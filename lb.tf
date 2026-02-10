@@ -53,6 +53,7 @@ resource "aws_lb" "vault_lb" {
   internal                         = var.load_balancing_scheme == "INTERNAL" ? true : false
   load_balancer_type               = "network"
   subnets                          = var.net_lb_subnet_ids == null ? var.net_vault_subnet_ids : var.net_lb_subnet_ids
+  security_groups                  = [aws_security_group.lb[0].id]
   enable_cross_zone_load_balancing = var.enable_cross_zone_load_balancing
   tags                             = var.resource_tags
 }

@@ -10,10 +10,10 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_security_group_rule" "ingress_vault_api_cidr" {
-  count       = 1 # var.security_group_ids == null ? 1 : 0
+  count       = var.net_ingress_vault_cidr_blocks != null && length(var.net_ingress_vault_cidr_blocks) > 0 ? 1 : 0
   type        = "ingress"
-  from_port   = 8200 # var.vault_port_api
-  to_port     = 8200 # var.vault_port_api
+  from_port   = var.vault_port_api
+  to_port     = var.vault_port_api
   protocol    = "tcp"
   cidr_blocks = var.net_ingress_vault_cidr_blocks
   description = "Allow API access to Vault nodes"
@@ -21,23 +21,23 @@ resource "aws_security_group_rule" "ingress_vault_api_cidr" {
   security_group_id = aws_security_group.main[0].id
 }
 
-# resource "aws_security_group_rule" "ingress_vault_api_sg_ids" {
-#   count     = 1 # var.security_group_ids == null ? 1 : 0
-#   type      = "ingress"
-#   from_port = 8200 # var.vault_port_api
-#   to_port   = 8200 # var.vault_port_api
-#   protocol  = "tcp"
-#   cidr_blocks = concat([data.aws_vpc.vault_vpc.cidr_block], var.ingress_vault_cidr_blocks)
-#   description = "Allow API access to Vault nodes"
+resource "aws_security_group_rule" "ingress_vault_api_sg_ids" {
+  for_each                 = toset(var.net_ingress_vault_security_group_ids == null ? [] : var.net_ingress_vault_security_group_ids)
+  type                     = "ingress"
+  from_port                = var.vault_port_api
+  to_port                  = var.vault_port_api
+  protocol                 = "tcp"
+  source_security_group_id = each.value
+  description              = "Allow API access to Vault nodes from specified security groups"
 
-#   security_group_id = aws_security_group.main[0].id
-# }
+  security_group_id = aws_security_group.main[0].id
+}
 
 resource "aws_security_group_rule" "ingress_vault_cluster" {
   count       = 1 # var.security_group_ids == null ? 1 : 0
   type        = "ingress"
-  from_port   = 8201 # var.vault_port_cluster
-  to_port     = 8201 # var.vault_port_cluster
+  from_port   = var.vault_port_cluster
+  to_port     = var.vault_port_cluster
   self        = true
   protocol    = "tcp"
   description = "Allow Vault nodes to communicate with each other in HA mode"
@@ -45,14 +45,38 @@ resource "aws_security_group_rule" "ingress_vault_cluster" {
   security_group_id = aws_security_group.main[0].id
 }
 
-resource "aws_security_group_rule" "ingress_ssh_cidr" {
+resource "aws_security_group_rule" "ingress_vault_api" {
   count       = 1 # var.security_group_ids == null ? 1 : 0
+  type        = "ingress"
+  from_port   = var.vault_port_api
+  to_port     = var.vault_port_api
+  self        = true
+  protocol    = "tcp"
+  description = "Allow Vault nodes to communicate with each other on the API port for auto_join"
+
+  security_group_id = aws_security_group.main[0].id
+}
+
+resource "aws_security_group_rule" "ingress_ssh_cidr" {
+  count       = var.net_ingress_ssh_cidr_blocks != null && length(var.net_ingress_ssh_cidr_blocks) > 0 ? 1 : 0
   type        = "ingress"
   from_port   = 22
   to_port     = 22
   protocol    = "tcp"
   cidr_blocks = var.net_ingress_ssh_cidr_blocks
   description = "Allow SSH access to Vault nodes"
+
+  security_group_id = aws_security_group.main[0].id
+}
+
+resource "aws_security_group_rule" "ingress_ssh_sg_ids" {
+  for_each                 = toset(var.net_ingress_ssh_security_group_ids == null ? [] : var.net_ingress_ssh_security_group_ids)
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = each.value
+  description              = "Allow SSH access to Vault nodes from specified security groups"
 
   security_group_id = aws_security_group.main[0].id
 }
@@ -68,3 +92,65 @@ resource "aws_security_group_rule" "egress_all" {
 
   security_group_id = aws_security_group.main[0].id
 }
+
+# LB related security groups and rules
+resource "aws_security_group" "lb" {
+  count       = var.load_balancing_scheme == "NONE" ? 0 : 1
+  name        = format("%s-lb-sg", var.friendly_name_prefix)
+  description = "Security group for Load Balancer"
+  vpc_id      = var.net_vpc_id
+  tags        = var.resource_tags
+}
+
+# Necessary Security Group rules for LB to communicate with Vault instances
+resource "aws_security_group_rule" "egress_lb" {
+  count                    = var.load_balancing_scheme == "NONE" ? 0 : 1
+  type                     = "egress"
+  from_port                = var.vault_port_api
+  to_port                  = var.vault_port_api
+  source_security_group_id = aws_security_group.main[0].id
+  protocol                 = "tcp"
+
+  description = "Allow egress traffic from LB to Vault API ports"
+
+  security_group_id = aws_security_group.lb[0].id
+}
+
+resource "aws_security_group_rule" "ingress_vault_api_lb" {
+  count                    = var.load_balancing_scheme == "NONE" ? 0 : 1
+  type                     = "ingress"
+  from_port                = var.vault_port_api
+  to_port                  = var.vault_port_api
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.lb[0].id
+  description              = "Allow API access to Vault nodes from load balancer"
+
+  security_group_id = aws_security_group.main[0].id
+}
+# END Necessary Security Group rules for LB to communicate with Vault instances
+
+# Necessary Security Group rules for consumer to reach Vault LB
+resource "aws_security_group_rule" "ingress_vault_api_lb_cidr" {
+  count       = var.load_balancing_scheme != "NONE" && var.net_ingress_lb_cidr_blocks != null && length(var.net_ingress_lb_cidr_blocks) > 0 ? 1 : 0
+  type        = "ingress"
+  from_port   = var.vault_port_api
+  to_port     = var.vault_port_api
+  protocol    = "tcp"
+  cidr_blocks = var.net_ingress_lb_cidr_blocks
+  description = "Allow API access to Vault API via Load Balancer"
+
+  security_group_id = aws_security_group.lb[0].id
+}
+
+resource "aws_security_group_rule" "ingress_vault_api_lb_sg_ids" {
+  for_each                 = toset(var.load_balancing_scheme == "NONE" || var.net_ingress_lb_security_group_ids == null ? [] : var.net_ingress_lb_security_group_ids)
+  type                     = "ingress"
+  from_port                = var.vault_port_api
+  to_port                  = var.vault_port_api
+  protocol                 = "tcp"
+  source_security_group_id = each.value
+  description              = "Allow API access to Vault API via Load Balancer from specified security groups"
+
+  security_group_id = aws_security_group.lb[0].id
+}
+# END Necessary Security Group rules for consumer to reach Vault LB
