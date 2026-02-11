@@ -7,7 +7,7 @@
 The current prerequisites don't mention Route53 if DNS integration is desired. Add:
 
 ```markdown
-* (Optional) A [Route53 Hosted Zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zones-working-with.html) if using `create_route53_vault_dns_record`
++ (Optional) A [Route53 Hosted Zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zones-working-with.html) if using `create_route53_vault_dns_record`
 ```
 
 ### 2. Add Supported Operating Systems Section
