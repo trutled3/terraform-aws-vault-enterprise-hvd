@@ -44,9 +44,9 @@ Upon first deployment, Vault servers will auto-join and form a fresh cluster. Th
 
 ### Next Steps
 
-- <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#check-the-status-of-vault>
-- <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#initialize-vault>
-- <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#unseal-vault>
+* <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#check-the-status-of-vault>
+* <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#initialize-vault>
+* <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#unseal-vault>
 
 ### Deployment options
 
@@ -60,15 +60,12 @@ Example deployment scenarios can be found in the [`examples`](./examples) direct
 
 see [Deployment Troubleshooting](./docs/vault-deployment-troubleshooting.md)
 
-
-
-
 ## Module support
 
 This open source software is maintained by the HashiCorp Technical Field Organization, independently of our enterprise products. While our Support Engineering team provides dedicated support for our enterprise offerings, this open source software is not included.
 
-- For help using this open source software, please engage your account team.
-- To report bugs/issues with this open source software, please open them directly against this code repository using the GitHub issues feature.
+* For help using this open source software, please engage your account team.
+* To report bugs/issues with this open source software, please open them directly against this code repository using the GitHub issues feature.
 
 Please note that there is no official Service Level Agreement (SLA) for support of this software as a HashiCorp customer. This software falls under the definition of Community Software/Versions in your Agreement. We appreciate your understanding and collaboration in improving our open source projects.
 
