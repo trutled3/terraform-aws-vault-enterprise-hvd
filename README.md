@@ -14,11 +14,29 @@ This module requires the following to already be in place in AWS:
 * A dedicated [KMS Key](https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html) to support auto-unseal
 * TLS certificate with intermediate certs, certificate private key and CA certificate (required for privately signed cert)
 * Access to [Secrets Manager](https://aws.amazon.com/secrets-manager/) for initial secrets such as product license and TLS certificate material
+* (Optional) A [Route53 Hosted Zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zones-working-with.html) if using `create_route53_vault_dns_record`
 * AWS API credentials for Terraform to deploy:
   * AWS Autoscaling Group, Launch Template and Placement Group
   * AWS IAM Roles and Instance Profile
   * AWS Load Balancer, Listener and Target Group
   * AWS Security Group and Security Group Rules
+
+## Supported Operating Systems
+
+This module supports the following Linux distributions via the `ec2_os_distro` variable:
+
+| Distribution | Value | AMI Source |
+|--------------|-------|------------|
+| Ubuntu 22.04 LTS | `ubuntu` (default) | Canonical |
+| RHEL 9 | `rhel` | Red Hat |
+| Amazon Linux 2023 | `al2023` | Amazon |
+| CentOS | `centos` | Custom AMI required |
+
+> **Note:** For CentOS deployments, you must provide a custom AMI ID via `vm_image_id`.
+
+## Architecture Support
+
+This module supports both x86_64 (amd64) and ARM64 (aarch64) instances. The install script automatically detects the system architecture and downloads the appropriate Vault binary.
 
 ## Deployment
 
@@ -34,11 +52,39 @@ Example deployment scenarios can be found in the [`examples`](./examples) direct
 
 ## Troubleshooting
 
-During deployment the output of the `user_data` script can be traced in `/var/log/cloud-init.log`, `/var/log/cloud-init-output.log` and `/var/log/vault-cloud-init.log` due to `set -xeuo pipefail` in the default  `install-vault.sh.tpl`
-For help debugging cloud init and user data scripts
-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html#userdata-linux>
-- <https://cloudinit.readthedocs.io/en/latest/howto/debugging.html#cloud-init-ran-but-didn-t-do-what-i-want-it-to>
+### Viewing Installation Logs
 
+During deployment, the output of the `user_data` script can be traced in:
+- `/var/log/cloud-init.log` - Cloud-init execution log
+- `/var/log/cloud-init-output.log` - Standard output from cloud-init
+- `/var/log/vault-cloud-init.log` - Vault-specific installation log (due to `set -xeuo pipefail`)
+
+### Common Issues
+
+#### Raft Initialization Failure
+
+If you see `could not start clustered storage: HeartbeatTimeout is too low`, ensure `vault_raft_performance_multiplier` is set between 1-10 (default is 5).
+
+#### EBS Volume Mount Failures
+
+The install script includes a 20-second delay for EBS attachment. If issues persist, check:
+- EC2 instance has proper IAM permissions for `ec2:DescribeVolumes`
+- EBS volumes are in the same availability zone as the instance
+
+#### SSM Connection Issues
+
+If using `ec2_allow_ssm = true` and SSM is not connecting:
+- Ensure the AMI has the SSM agent installed
+- Verify VPC endpoints for SSM exist or NAT gateway allows outbound traffic
+
+#### Base64 Encoded Secrets Support
+
+If you encounter `Error initializing listener of type tcp: error loading TLS cert: decoded PEM is blank`, this indicates you have provided base64 encoded TLS secrets to a release `<= 2.0`. Update to the latest version which includes automatic base64 decoding support.
+
+### Debug Resources
+
+- [AWS EC2 User Data Troubleshooting](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html#userdata-linux)
+- [Cloud-init Debugging Guide](https://cloudinit.readthedocs.io/en/latest/howto/debugging.html#cloud-init-ran-but-didn-t-do-what-it-want-it-to)
 
 ## Module support
 
