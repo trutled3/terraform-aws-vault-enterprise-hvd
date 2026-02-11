@@ -233,7 +233,7 @@ Enhanced security group rules with conditional creation and `for_each`:
 Thanks to all contributors to this release!
 
 - **Adam Buxton** ([@abuxton](https://github.com/abuxton))
-- **Dan Brown** ([@dan](https://github.com/dan)) - HashiCorp
+- **Dan Brown** ([@danbr-ibm](https://github.com/danbr-ibm))
 - **Jeff McCollum** ([@jeffmccollum](https://github.com/jeffmccollum))
 - **Johnny Carlin** ([@thejohnny](https://github.com/thejohnny))
 - **Mark Lewis** ([@lewis4](https://github.com/lewis4))
