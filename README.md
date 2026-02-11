@@ -40,51 +40,28 @@ This module supports both x86_64 (amd64) and ARM64 (aarch64) instances. The inst
 
 ## Deployment
 
-Upon first deployment, Vault servers will auto-join and form a fresh cluster. The cluster will be in an uninitialized, sealed state. An operator must then connect to the cluster to initialize Vault. If auto-unseal is used via AWS KMS, the Vault nodes will automatically unseal upon initialization. If the Shamir seal is used, the operator must manually unseal each node.
+Upon first deployment, Vault servers will auto-join and form a fresh cluster. The cluster will be in an uninitialized, sealed state. An operator must then connect to the cluster to initialize Vault. If auto-unseal is used via AWS KMS, the Vault nodes will automatically unseal upon initialization. If the Shamir seal is used, the operator must manually unseal each node
 
-## Deployment options
+### Next Steps
+
+- <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#check-the-status-of-vault>
+- <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#initialize-vault>
+- <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#unseal-vault>
+
+### Deployment options
 
 see [Deployment customizations](./docs/vault-deployment-customizations.md)
 
-## Examples
+### Examples
 
 Example deployment scenarios can be found in the [`examples`](./examples) directory of this repo. These examples cover multiple capabilities of the module and are meant to serve as a starting point for operators.
 
-## Troubleshooting
+### Troubleshooting
 
-### Viewing Installation Logs
+see [Deployment Troubleshooting](./docs/vault-deployment-troubleshooting.md)
 
-During deployment, the output of the `user_data` script can be traced in:
-- `/var/log/cloud-init.log` - Cloud-init execution log
-- `/var/log/cloud-init-output.log` - Standard output from cloud-init
-- `/var/log/vault-cloud-init.log` - Vault-specific installation log (due to `set -xeuo pipefail`)
 
-### Common Issues
 
-#### Raft Initialization Failure
-
-If you see `could not start clustered storage: HeartbeatTimeout is too low`, ensure `vault_raft_performance_multiplier` is set between 1-10 (default is 5).
-
-#### EBS Volume Mount Failures
-
-The install script includes a 20-second delay for EBS attachment. If issues persist, check:
-- EC2 instance has proper IAM permissions for `ec2:DescribeVolumes`
-- EBS volumes are in the same availability zone as the instance
-
-#### SSM Connection Issues
-
-If using `ec2_allow_ssm = true` and SSM is not connecting:
-- Ensure the AMI has the SSM agent installed
-- Verify VPC endpoints for SSM exist or NAT gateway allows outbound traffic
-
-#### Base64 Encoded Secrets Support
-
-If you encounter `Error initializing listener of type tcp: error loading TLS cert: decoded PEM is blank`, this indicates you have provided base64 encoded TLS secrets to a release `<= 2.0`. Update to the latest version which includes automatic base64 decoding support.
-
-### Debug Resources
-
-- [AWS EC2 User Data Troubleshooting](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html#userdata-linux)
-- [Cloud-init Debugging Guide](https://cloudinit.readthedocs.io/en/latest/howto/debugging.html#cloud-init-ran-but-didn-t-do-what-it-want-it-to)
 
 ## Module support
 
