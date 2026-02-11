@@ -235,7 +235,7 @@ Thanks to all contributors to this release!
 - **Adam Buxton** ([@abuxton](https://github.com/abuxton))
 - **Dan Brown** ([@dan](https://github.com/dan)) - HashiCorp
 - **Jeff McCollum** ([@jeffmccollum](https://github.com/jeffmccollum))
-- **Johnny Carlin** ([@thejohnny](https://github.com/thejohnny)) - HashiCorp
+- **Johnny Carlin** ([@thejohnny](https://github.com/thejohnny))
 - **Mark Lewis** ([@lewis4](https://github.com/lewis4)) - IBM
 - **nhsy-hcp** ([@nhsy-hcp](https://github.com/nhsy-hcp))
 - **Nick Philbrook** ([@nphilbrook](https://github.com/nphilbrook))
