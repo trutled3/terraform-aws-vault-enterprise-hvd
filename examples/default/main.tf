@@ -10,6 +10,10 @@ module "default_example" {
   friendly_name_prefix = var.friendly_name_prefix
   vault_fqdn           = var.vault_fqdn
 
+  create_route53_vault_dns_record      = var.create_route53_vault_dns_record
+  route53_vault_hosted_zone_name       = var.route53_vault_hosted_zone_name
+  route53_vault_hosted_zone_is_private = var.route53_vault_hosted_zone_is_private
+
   #------------------------------------------------------------------------------
   # Networking
   #------------------------------------------------------------------------------
