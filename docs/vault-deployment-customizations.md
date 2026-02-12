@@ -40,7 +40,7 @@ vm_image_id   = "<custom-ami-id>"
 ec2_os_distro = "<matching-os-distro>"
 ```
 
-### Supported OS Distributions
+### Supported OS distributions
 
 | `ec2_os_distro` value | Description |
 |----------------------|-------------|
