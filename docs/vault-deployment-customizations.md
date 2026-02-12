@@ -75,7 +75,7 @@ This ensures the Vault binary has not been tampered with during download.
 
 > **Note:** On Amazon Linux 2023, the script automatically installs `gnupg2-full` (replacing `gnupg2-minimal`) to enable GPG verification.
 
-## AWS Secrets Manager Certificate Formats
+## AWS Secrets Manager certificate formats
 
 The module supports TLS certificates stored in AWS Secrets Manager in two formats:
 
