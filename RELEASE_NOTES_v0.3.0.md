@@ -4,7 +4,7 @@
 
 This release includes significant improvements to multi-OS support, enhanced binary verification, AWS SSM integration, Route53 DNS support, cross-zone load balancing, improved security group management, base64-encoded secrets support, and several bug fixes for Vault deployment on AWS EC2.
 
-## Breaking Changes
+## Breaking changes
 
 ### Raft Performance Multiplier Default Changed
 
