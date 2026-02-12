@@ -217,7 +217,7 @@ Your custom script must handle the following template variables.
 | `${vault_fqdn}` | Fully qualified domain name |
 | ... | See `templates/install-vault.sh.tpl` for complete list |
 
-### Debugging Custom Scripts
+### Debugging custom scripts
 
 1. Enable the local file render in `compute.tf` (commented out) to preview rendered output
 2. Check `/var/log/vault-cloud-init.log` on deployed instances
