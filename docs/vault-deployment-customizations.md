@@ -62,7 +62,7 @@ vm_image_id   = "ami-0123456789abcdef0"
 ec2_os_distro = "rhel"
 ```
 
-## Binary Verification
+## Binary verification
 
 The install script performs GPG signature and SHA256 checksum verification on the Vault binary:
 
