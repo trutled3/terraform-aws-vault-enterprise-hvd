@@ -42,7 +42,7 @@ This module supports both x86_64 (amd64) and ARM64 (aarch64) instances. The inst
 
 Upon first deployment, Vault servers will auto-join and form a fresh cluster. The cluster will be in an uninitialized, sealed state. An operator must then connect to the cluster to initialize Vault. If auto-unseal is used via AWS KMS, the Vault nodes will automatically unseal upon initialization. If the Shamir seal is used, the operator must manually unseal each node
 
-### Next Steps
+### Next steps
 
 * <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#check-the-status-of-vault>
 * <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#initialize-vault>
