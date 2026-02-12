@@ -34,7 +34,7 @@ This module supports the following Linux distributions via the `ec2_os_distro` v
 
 > **Note:** For CentOS deployments, you must provide a custom AMI ID via `vm_image_id`.
 
-## Architecture Support
+## Architecture support
 
 This module supports both x86_64 (amd64) and ARM64 (aarch64) instances. The install script automatically detects the system architecture and downloads the appropriate Vault binary.
 
