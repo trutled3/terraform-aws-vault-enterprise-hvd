@@ -14,16 +14,16 @@ This release includes significant improvements to multi-OS support, enhanced bin
 - **Migration**: If you were relying on the default, no action needed. If you explicitly set `vault_raft_performance_multiplier = 0`, update to a value between `1` and `10`.
 - **Related issue**: <https://github.com/hashicorp/vault/pull/30511>
 
-### AWS Provider Version Constraint
+### AWS provider version constraint
 
-- **Supported versions**: `>= 5.0` (reverted from temporarily pinned `~> 5.0`)
-- AWS Provider 6.x introduces deprecation warnings but is now supported for customers comfortable with those warnings
+- **Supported versions**: `>= 5.0` (reverted from temporarily pinned `~> 5.0`).
+- AWS provider 6.x introduces deprecation warnings but is now supported for customers comfortable with those warnings.
 
-## New Features
+## New features
 
-### Multi-OS Distribution Support
+### Multi-OS distribution support
 
-New `ec2_os_distro` variable supports multiple Linux distributions:
+New `ec2_os_distro` variable supports multiple Linux distributions.
 
 - `ubuntu` (default) - Ubuntu 22.04 LTS
 - `rhel` - Red Hat Enterprise Linux 9
@@ -32,21 +32,21 @@ New `ec2_os_distro` variable supports multiple Linux distributions:
 
 Each OS has dedicated AMI data source filters ensuring the correct latest AMI is selected.
 
-### Custom AMI Support
+### Custom AMI support
 
-Enhanced `vm_image_id` variable now includes:
+Enhanced `vm_image_id` variable now includes the following.
 
 - Validation to ensure AMI IDs start with `ami-`
 - Requirement for CentOS: must provide custom AMI when `ec2_os_distro = "centos"`
 - Automatic coordination with `ec2_os_distro` for proper install script behavior
 
-### Route53 DNS Integration
+### Route53 DNS integration
 
-New native support for creating Route53 alias records:
+New native support for creating the following Route53 alias records.
 
-- `create_route53_vault_dns_record` - Enable Route53 alias record creation
-- `route53_vault_hosted_zone_name` - Hosted zone name for the alias record
-- `route53_vault_hosted_zone_is_private` - Support for private hosted zones
+- `create_route53_vault_dns_record` - Enable Route53 alias record creation.
+- `route53_vault_hosted_zone_name` - Hosted zone name for the alias record.
+- `route53_vault_hosted_zone_is_private` - Support for private hosted zones.
 
 ### AWS Systems Manager (SSM) Support
 
