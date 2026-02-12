@@ -55,36 +55,36 @@ New `ec2_allow_ssm` variable enables SSM agent connectivity:
 - Attaches `AmazonSSMManagedInstanceCore` managed policy to Vault IAM role
 - Supports secure instance access without SSH
 
-### Custom Startup Script Template
+### Custom startup script template
 
-New `custom_startup_script_template` variable allows:
+New `custom_startup_script_template` variable allows the following.
 
-- Use of custom install scripts located in `./templates/` directory
-- Full control over Vault installation process
-- Script must include all required template variables
+- Use of custom install scripts located in `./templates/` directory.
+- Full control over Vault installation process.
+- Script must include all required template variables.
 
-### Architecture Detection
+### Architecture detection
 
-Install script now automatically detects system architecture:
+The install script now automatically detects the system architecture as one of the following.
 
 - `linux_amd64` (x86_64)
 - `linux_arm64` (aarch64)
 - `linux_arm` (arm)
 
-### Binary Checksum Verification
+### Binary checksum verification
 
-Enhanced security with GPG signature and SHA256 checksum verification:
+Enhanced security with GPG signature and SHA256 checksum verification is now included and performs the following functions.
 
-- Downloads and imports HashiCorp GPG public key
+- Downloads and imports the HashiCorp GPG public key
 - Verifies SHA256SUMS signature file
 - Validates binary checksum before installation
 - Graceful handling of both `sha256sum` and `shasum` utilities
 
-### Cross-Zone Load Balancing
+### Cross-zone load balancing
 
 New `enable_cross_zone_load_balancing` variable for Network Load Balancer:
 
-- Distributes traffic evenly across all registered targets in all enabled Availability Zones
+- Distributes traffic evenly across all registered targets in all enabled availability zones.
 - Default: `false`
 - Recommended for production multi-AZ deployments
 
