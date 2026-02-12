@@ -150,14 +150,14 @@ Enhanced security group rules with conditional creation and use of the `for_each
 - Fixed errant TFE references in templates (changed to Vault)
 - Standardized template directive spacing in outputs
 
-## Bug Fixes
+## Bug fixes
 
 - **Raft initialization failure**: Fixed default `vault_raft_performance_multiplier` causing Vault cluster to fail initialization
 - **EBS attachment timing**: Added delay to prevent race condition when mounting EBS volumes
 - **Missing EBS volume handling**: Added explicit error when expected EBS volume is not found
 - **OS distro case sensitivity**: Fixed inconsistent variable casing in package installation logic
 
-## Compliance & Infrastructure
+## Compliance and infrastructure
 
 - Updated copyright headers (compliance batch update)
 - Added GitHub workflow permissions for releases
@@ -166,11 +166,11 @@ Enhanced security group rules with conditional creation and use of the `for_each
 
 ## Documentation
 
-- Added troubleshooting section to main README with links to cloud-init debugging resources
-- Enhanced docs for Custom AMI deployment
-- Added DNS Route53 configuration documentation
-- Added custom startup script documentation
-- Added AL2023 gnupg2 note
+- Added troubleshooting section to main README with links to cloud-init debugging resources.
+- Enhanced docs for Custom AMI deployment.
+- Added DNS Route53 configuration documentation.
+- Added custom startup script documentation.
+- Added AL2023 gnupg2 note.
 
 ## Dependencies
 
