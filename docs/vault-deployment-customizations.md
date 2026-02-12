@@ -10,7 +10,7 @@ To enable secure instance access via AWS Systems Manager Session Manager (instea
 ec2_allow_ssm = true
 ```
 
-This attaches the `AmazonSSMManagedInstanceCore` IAM policy to the Vault instance role. The AMI must have the SSM agent installed (Amazon Linux 2023 and Ubuntu official AMIs include it by default).
+This attaches the `AmazonSSMManagedInstanceCore` IAM policy to the Vault instance role. The AMI must have the SSM agent installed ( Required for Redhat, while Amazon Linux 2023 and Ubuntu official AMIs include it by default ).
 
 > **Note:** This is an alternative to SSH access and does not require opening port 22 or managing SSH keys.
 
