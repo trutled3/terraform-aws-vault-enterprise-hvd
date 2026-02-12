@@ -67,9 +67,9 @@ ec2_os_distro = "rhel"
 The install script performs GPG signature and SHA256 checksum verification on the Vault binary:
 
 1. Downloads HashiCorp's GPG public key from `https://www.hashicorp.com/.well-known/pgp-key.txt`
-2. Downloads the binary, SHA256SUMS, and signature files
-3. Verifies the signature file is authentic
-4. Validates the binary checksum
+1. Downloads the binary, SHA256SUMS, and signature files
+1. Verifies the signature file is authentic
+1. Validates the binary checksum
 
 This ensures the Vault binary has not been tampered with during download.
 
