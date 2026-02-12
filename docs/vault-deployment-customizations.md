@@ -200,9 +200,9 @@ custom_startup_script_template = "my-custom-install.sh.tpl"
 
 ### Requirements
 
-1. The script **must** exist in a folder named `./templates/` within your current working directory
-2. The script **must** contain all template variables used by the module (see default template for reference)
-3. Use at your own risk - breaking changes to template variables may occur
+1. The script **must** exist in a folder named `./templates/` within your current working directory.
+1. The script **must** contain all template variables used by the module (see default template for reference).
+1. Use at your own risk - breaking changes to template variables may occur.
 
 ### Template Variables
 
