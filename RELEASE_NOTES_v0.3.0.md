@@ -92,34 +92,34 @@ New `enable_cross_zone_load_balancing` variable for Network Load Balancer:
 enable_cross_zone_load_balancing = true
 ```
 
-### Base64-Encoded Secrets Manager Support
+### Base64-encoded secrets manager support
 
 Enhanced TLS certificate retrieval with automatic format detection:
 
-- **Auto-detection**: Automatically detects and decodes base64-encoded certificate secrets
-- **Validation**: Validates certificates contain valid PEM-formatted data after retrieval
-- **Error handling**: Fails gracefully with clear error messages (exit codes 5-7) if certificates are empty or invalid
-- Supports both raw PEM and base64-encoded certificate values in Secrets Manager
-- Variable descriptions updated to recommend base64-encoded storage
+- **Auto-detection**: Automatically detects and decodes base64-encoded certificate secrets.
+- **Validation**: Validates certificates contain valid PEM-formatted data after retrieval.
+- **Error handling**: Fails gracefully with clear error messages (exit codes 5-7) if certificates are empty or invalid.
+- Supports both raw PEM and base64-encoded certificate values in AWS Secrets Manager.
+- Variable descriptions updated to recommend base64-encoded storage.
 
-### Load Balancer Security Group
+### Load balancer security group
 
-New dedicated security group for the load balancer with improved access controls:
+New dedicated security group for the load balancer with improved access controls are included with this release.
 
-- `net_ingress_lb_cidr_blocks` - CIDR blocks allowed to access Vault via LB
-- `net_ingress_lb_security_group_ids` - Security group IDs allowed to access Vault via LB
-- New output `vault_load_balancer_security_group_id` for downstream security group rules
-- Proper egress rule from LB to Vault instances on API port
+- `net_ingress_lb_cidr_blocks` - Provided to allow the specification of CIDR blocks allowed to access Vault via the load balancer.
+- `net_ingress_lb_security_group_ids` - Allows specification of  security group IDs allowed to access Vault via the load balancer.
+- New output `vault_load_balancer_security_group_id` for downstream security group rules.
+- Proper egress rule from load balancer to Vault instances on API port.
 
-### Security Group Rule Improvements
+### Security group rule improvements
 
-Enhanced security group rules with conditional creation and `for_each`:
+Enhanced security group rules with conditional creation and use of the `for_each` argument.
 
-- `net_ingress_vault_security_group_ids` - Now creates rules per security group ID (using `for_each`)
-- `net_ingress_ssh_security_group_ids` - Now creates rules per security group ID (using `for_each`)
-- SSH and Vault API CIDR rules only created when CIDRs are provided
-- Added self-referencing rule for Vault API port (8200) to support `auto_join`
-- Uses `var.vault_port_api` instead of hardcoded `8200`
+- `net_ingress_vault_security_group_ids` - Now creates rules per security group ID (using `for_each`).
+- `net_ingress_ssh_security_group_ids` - Now creates rules per security group ID (using `for_each`).
+- SSH and Vault API CIDR rules are only created when CIDRs are provided.
+- Added self-referencing rule for Vault API port (8200) to support `auto_join`.
+- Uses `var.vault_port_api` instead of hardcoded `8200`.
 
 ## Improvements
 
