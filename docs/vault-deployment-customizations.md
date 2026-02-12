@@ -19,7 +19,7 @@ This attaches the `AmazonSSMManagedInstanceCore` IAM policy to the Vault instanc
 This module supports creating an _alias_ record in AWS Route53 for the Vault FQDN to resolve to the Vault API load balancer DNS name.
 
 
-### Basic Private Hosted Zone
+### Basic private hosted zone
 
 For VPC-internal DNS resolution:
 
