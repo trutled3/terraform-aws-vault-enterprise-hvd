@@ -25,7 +25,7 @@ This module requires the following to already be in place in AWS:
 
 This module supports the following Linux distributions via the `ec2_os_distro` variable:
 
-| Distribution | Value | AMI Source |
+| Distribution | Value | AMI source |
 |--------------|-------|------------|
 | Ubuntu 22.04 LTS | `ubuntu` (default) | Canonical |
 | RHEL 9 | `rhel` | Red Hat |
