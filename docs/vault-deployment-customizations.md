@@ -206,7 +206,7 @@ custom_startup_script_template = "my-custom-install.sh.tpl"
 
 ### Template Variables
 
-Your custom script must handle these template variables:
+Your custom script must handle the following template variables.
 
 | Variable | Description |
 |----------|-------------|
