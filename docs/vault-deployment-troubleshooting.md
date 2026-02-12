@@ -1,29 +1,29 @@
-# Deployment Troubleshooting
+# Deployment troubleshooting
 
-## Viewing Installation Logs
+## Viewing installation logs
 
-During deployment, the output of the `user_data` script can be traced in:
-- `/var/log/cloud-init.log` - Cloud-init execution log
-- `/var/log/cloud-init-output.log` - Standard output from cloud-init
-- `/var/log/vault-cloud-init.log` - Vault-specific installation log (due to `set -xeuo pipefail`)
+During deployment, the output of the `user_data` script can be traced in the following paths.
+- `/var/log/cloud-init.log` - Cloud-init execution log.
+- `/var/log/cloud-init-output.log` - Standard output from cloud-init.
+- `/var/log/vault-cloud-init.log` - Vault-specific installation log (due to `set -xeuo pipefail`).
 
-## Common Issues
+## Common issues
 
-### Raft Initialization Failure
+### Raft initialization failure
 
 If you see `could not start clustered storage: HeartbeatTimeout is too low`, ensure `vault_raft_performance_multiplier` is set between 1-10 (default is 5).
 
-### EBS Volume Mount Failures
+### EBS volume mount failures
 
-The install script includes a 20-second delay for EBS attachment. If issues persist, check:
-- EC2 instance has proper IAM permissions for `ec2:DescribeVolumes`
-- EBS volumes are in the same availability zone as the instance
+The install script includes a 20-second delay for EBS attachment. If issues persist, check the following.
+- EC2 instance has proper IAM permissions for `ec2:DescribeVolumes`.
+- EBS volumes are in the same availability zone as the instance.
 
-### SSM Connection Issues
+### SSM connection issues
 
-If using `ec2_allow_ssm = true` and SSM is not connecting:
-- Ensure the AMI has the SSM agent installed
-- Verify VPC endpoints for SSM exist or NAT gateway allows outbound traffic
+If using `ec2_allow_ssm = true` and SSM is not connecting, perform the following checks.
+- Ensure the AMI has the SSM agent installed.
+- Verify VPC endpoints for SSM exist or NAT gateway allows outbound traffic.
 
 ### Base64 Encoded Secrets Support
 
