@@ -49,7 +49,7 @@ ec2_os_distro = "<matching-os-distro>"
 | `al2023` | Amazon Linux 2023 compatible |
 | `centos` | CentOS (custom AMI required) |
 
-### Important Notes
+### Important notes
 
 - The `ec2_os_distro` value **must** match your custom AMI's operating system to ensure the correct package manager is used during installation.
 - For CentOS, you **must** provide a custom AMI via `vm_image_id` as there is no default CentOS AMI data source.
