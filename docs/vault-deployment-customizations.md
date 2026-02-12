@@ -219,7 +219,7 @@ Your custom script must handle the following template variables.
 
 ### Debugging custom scripts
 
-1. Enable the local file render in `compute.tf` (commented out) to preview rendered output
+1. Enable the local file render in `compute.tf` (commented out) to preview rendered output.
 1. Check `/var/log/vault-cloud-init.log` on deployed instances.
 
 > **Note:** If using Amazon Linux 2023, your script should handle the `gnupg2-minimal` to `gnupg2-full` swap for GPG verification to work.
