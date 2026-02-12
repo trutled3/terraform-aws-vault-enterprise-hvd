@@ -55,7 +55,7 @@ ec2_os_distro = "<matching-os-distro>"
 - For CentOS, you **must** provide a custom AMI via `vm_image_id` as there is no default CentOS AMI data source.
 - AMI IDs must start with `ami-`.
 
-### Example: RHEL Custom AMI
+### Example: RHEL custom AMI
 
 ```hcl
 vm_image_id   = "ami-0123456789abcdef0"
