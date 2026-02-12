@@ -2,7 +2,7 @@
 
 On this page are various deployment customizations and their corresponding input variables that you may set to meet your requirements.
 
-## AWS Systems Manager (SSM) Access
+## AWS Systems Manager (SSM) access
 
 To enable secure instance access via AWS Systems Manager Session Manager (instead of SSH), set:
 
