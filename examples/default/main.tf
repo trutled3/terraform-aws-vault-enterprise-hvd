@@ -37,6 +37,6 @@ module "default_example" {
   # Compute
   #------------------------------------------------------------------------------
   vm_key_pair_name = var.vm_key_pair_name
-  vm_instance_type = "t3a.medium"
+  vm_instance_type = "m5.2xlarge"
   asg_node_count   = 3
 }
