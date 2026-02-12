@@ -6,7 +6,7 @@ This release includes significant improvements to multi-OS support, enhanced bin
 
 ## Breaking changes
 
-### Raft Performance Multiplier Default Changed
+### Raft performance multiplier default changed
 
 - **Previous default**: `0` (use Vault default)
 - **New default**: `5` (explicit Vault default value)
