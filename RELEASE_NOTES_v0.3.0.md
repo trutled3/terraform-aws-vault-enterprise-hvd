@@ -123,28 +123,28 @@ Enhanced security group rules with conditional creation and use of the `for_each
 
 ## Improvements
 
-### Install Script Enhancements
+### Install script enhancements
 
-- **Certificate handling**: New `retrieve_certs_from_awssm` function with base64 auto-detection and PEM validation
-- **Package management**: Separated Amazon Linux 2023 package handling, enabling `gnupg2-full` swap from `gnupg2-minimal`
-- **Binary deployment**: Improved permissions setting and symlink creation to `/usr/local/bin/vault`
-- **Logging**: Enhanced logging throughout the installation process
-- **Error handling**: Better error messages for unsupported architectures, failed verifications, and certificate issues (exit codes 5-7)
-- **Disk preparation**: Added 20-second delay for EBS volume attachment reliability
-- **EBS detection**: Added error handling when no EBS volume is found attached
-- **CLI config**: Uses `var.vault_port_api` instead of hardcoded port in profile script
+- **Certificate handling**: New `retrieve_certs_from_awssm` function with base64 auto-detection and PEM validation.
+- **Package management**: Separated Amazon Linux 2023 package handling, enabling `gnupg2-full` swap from `gnupg2-minimal`.
+- **Binary deployment**: Improved permissions setting and symlink creation to `/usr/local/bin/vault`.
+- **Logging**: Enhanced logging throughout the installation process.
+- **Error handling**: Better error messages for unsupported architectures, failed verifications, and certificate issues (exit codes 5-7).
+- **Disk preparation**: Added 20-second delay for EBS volume attachment reliability.
+- **EBS detection**: Added error handling when no EBS volume is found attached.
+- **CLI config**: Uses `var.vault_port_api` instead of hard-coded port in profile script.
 
-### User Data Compression
+### User data compression
 
-- Changed from `base64encode` to `base64gzip` for user data, reducing payload size
+- Changed from `base64encode` to `base64gzip` for user data, reducing payload size.
 
-### Data Source Improvements
+### Data source improvements
 
-- Added `aws_partition` data source for proper ARN construction across partitions (commercial, GovCloud, China)
-- Refactored AMI selection with conditional data sources based on `ec2_os_distro`
-- Added `aws_ami.selected` data source to query the specific AMI being used
+- Added `aws_partition` data source for proper ARN construction across partitions (commercial, GovCloud, China).
+- Refactored AMI selection with conditional data sources based on `ec2_os_distro`.
+- Added `aws_ami.selected` data source to query the specific AMI being used.
 
-### Code Quality
+### Code quality
 
 - Removed commented-out code in `locals.tf`
 - Fixed errant TFE references in templates (changed to Vault)
