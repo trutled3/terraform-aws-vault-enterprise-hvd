@@ -211,7 +211,7 @@ Thanks to all contributors to this release!
 - **Nick Philbrook** ([@nphilbrook](https://github.com/nphilbrook))
 - **pjohnson24** ([@pjohnson24](https://github.com/pjohnson24))
 
-### Automated Contributors
+### Automated contributors
 
 - hashicorp-copywrite[bot] - Compliance automation
 - actions-template-sync - Template synchronization
