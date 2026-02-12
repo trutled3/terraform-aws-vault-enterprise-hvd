@@ -182,42 +182,12 @@ Enhanced security group rules with conditional creation and use of the `for_each
 
 ### From 0.2.0 to 0.3.0
 
-1. **Review Raft Performance Multiplier**: If you had issues with cluster initialization, no changes needed - the new default fixes this. If you explicitly set this to `0`, update to a value between `1-10`.
+1. **Review Raft performance multiplier**: If you had issues with cluster initialization, no changes needed - the new default fixes this. If you explicitly set this to `0`, update to a value between `1-10`.
 
-2. **OS Distribution Selection**: If using the default Ubuntu AMI, no changes needed. To use a different OS:
+1. **OS distribution selection**: If using the default Ubuntu AMI, no changes needed. To use a different OS, use the following.
 
    ```hcl
    ec2_os_distro = "rhel"  # or "al2023", "centos"
-   ```
-
-3. **Custom AMI Users**: If using `vm_image_id`, ensure `ec2_os_distro` matches your AMI's OS:
-
-   ```hcl
-   vm_image_id   = "ami-0123456789abcdef0"
-   ec2_os_distro = "rhel"
-   ```
-
-4. **Route53 DNS (Optional)**: To enable Route53 alias records:
-
-   ```hcl
-   create_route53_vault_dns_record      = true
-   route53_vault_hosted_zone_name       = "example.com"
-   route53_vault_hosted_zone_is_private = false
-   ```
-
-5. **SSM Access (Optional)**: To enable AWS Systems Manager:
-
-   ```hcl
-   ec2_allow_ssm = true
-   ```
-
-6. **Cross-Zone Load Balancing (Optional)**: For multi-AZ deployments:
-
-   ```hcl
-   enable_cross_zone_load_balancing = true
-   ```
-
-7. **Load Balancer Security Group**: If you need to add custom ingress rules to the LB:
 
    ```hcl
    net_ingress_lb_cidr_blocks         = ["10.0.0.0/8"]
