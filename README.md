@@ -21,7 +21,7 @@ This module requires the following to already be in place in AWS:
   * AWS Load Balancer, Listener and Target Group
   * AWS Security Group and Security Group Rules
 
-## Supported Operating Systems
+## Supported operating systems
 
 This module supports the following Linux distributions via the `ec2_os_distro` variable:
 
