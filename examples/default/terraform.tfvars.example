@@ -12,7 +12,7 @@ route53_vault_hosted_zone_is_private = true
 # Networking
 #------------------------------------------------------------------------------
 net_vpc_id            = "<vpc-00001111222233334>"
-load_balancing_scheme = "<EXTERNAL>"
+load_balancing_scheme = "<INTERNAL>"
 
 net_vault_subnet_ids = [
   "<subnet-00000000000000001>",
