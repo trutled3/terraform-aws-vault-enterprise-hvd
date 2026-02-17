@@ -282,6 +282,12 @@ variable "net_ingress_vault_security_group_ids" {
   default     = []
 }
 
+variable "net_ingress_lb_cidr_blocks" {
+  type        = list(string)
+  description = "List of CIDR blocks to allow API access to Vault via Load Balancer."
+  default     = []
+}
+
 #-----------------------------------------------------------------------------------
 # DNS Route53
 #-----------------------------------------------------------------------------------

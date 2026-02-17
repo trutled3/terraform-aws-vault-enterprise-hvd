@@ -19,6 +19,7 @@ module "default_example" {
   net_lb_subnet_ids             = var.net_lb_subnet_ids
   net_ingress_vault_cidr_blocks = var.net_ingress_vault_cidr_blocks
   net_ingress_ssh_cidr_blocks   = var.net_ingress_ssh_cidr_blocks
+  net_ingress_lb_cidr_blocks    = var.net_ingress_lb_cidr_blocks
 
   #------------------------------------------------------------------------------
   # AWS Secrets Manager installation secrets and AWS KMS unseal key
