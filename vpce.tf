@@ -5,6 +5,11 @@ resource "aws_vpc_endpoint" "ssm" {
   subnet_ids          = var.net_lb_subnet_ids
   private_dns_enabled = true
   security_group_ids  = [aws_security_group.vpc_endpoints.id]
+
+  tags = merge(
+    var.resource_tags,
+    { Name = "${var.friendly_name_prefix}-ec2messages-vpce" }
+  )
 }
 
 resource "aws_vpc_endpoint" "ssmmessages" {
@@ -14,6 +19,11 @@ resource "aws_vpc_endpoint" "ssmmessages" {
   subnet_ids          = var.net_lb_subnet_ids
   private_dns_enabled = true
   security_group_ids  = [aws_security_group.vpc_endpoints.id]
+
+  tags = merge(
+    var.resource_tags,
+    { Name = "${var.friendly_name_prefix}-ec2messages-vpce" }
+  )
 }
 
 resource "aws_vpc_endpoint" "ec2messages" {
@@ -23,13 +33,22 @@ resource "aws_vpc_endpoint" "ec2messages" {
   subnet_ids          = var.net_lb_subnet_ids
   private_dns_enabled = true
   security_group_ids  = [aws_security_group.vpc_endpoints.id]
+
+  tags = merge(
+    var.resource_tags,
+    { Name = "${var.friendly_name_prefix}-ec2messages-vpce" }
+  )
 }
 
 resource "aws_security_group" "vpc_endpoints" {
   name        = format("%s-vpce-sg", var.friendly_name_prefix)
   description = "Security group for Vault VPC endpoints"
   vpc_id      = var.net_vpc_id
-  tags        = var.resource_tags
+
+  tags = merge(
+    var.resource_tags,
+    { Name = "${var.friendly_name_prefix}-ec2messages-vpce" }
+  )
 }
 
 resource "aws_security_group_rule" "vpc_endpoints_ingress" {
