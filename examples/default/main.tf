@@ -14,6 +14,8 @@ module "default_example" {
   route53_vault_hosted_zone_name       = var.route53_vault_hosted_zone_name
   route53_vault_hosted_zone_is_private = var.route53_vault_hosted_zone_is_private
 
+  ec2_allow_ssm = var.ec2_allow_ssm
+
   #------------------------------------------------------------------------------
   # Networking
   #------------------------------------------------------------------------------
