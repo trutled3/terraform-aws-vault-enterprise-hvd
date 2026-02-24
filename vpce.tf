@@ -4,6 +4,7 @@ resource "aws_vpc_endpoint" "ssm" {
   vpc_endpoint_type   = "Interface"
   subnet_ids          = var.net_lb_subnet_ids
   private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoints.id]
 }
 
 resource "aws_vpc_endpoint" "ssmmessages" {
@@ -12,6 +13,7 @@ resource "aws_vpc_endpoint" "ssmmessages" {
   vpc_endpoint_type   = "Interface"
   subnet_ids          = var.net_lb_subnet_ids
   private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoints.id]
 }
 
 resource "aws_vpc_endpoint" "ec2messages" {
@@ -20,4 +22,22 @@ resource "aws_vpc_endpoint" "ec2messages" {
   vpc_endpoint_type   = "Interface"
   subnet_ids          = var.net_lb_subnet_ids
   private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoints.id]
+}
+
+resource "aws_security_group" "vpc_endpoints" {
+  name        = format("%s-vpce-sg", var.friendly_name_prefix)
+  description = "Security group for Vault VPC endpoints"
+  vpc_id      = var.net_vpc_id
+  tags        = var.resource_tags
+}
+
+resource "aws_security_group_rule" "vpc_endpoints_ingress" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.main.id
+  security_group_id        = aws_security_group.vpc_endpoints.id
+  description              = "Allow HTTPS from main security group"
 }
