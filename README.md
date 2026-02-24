@@ -14,38 +14,58 @@ This module requires the following to already be in place in AWS:
 * A dedicated [KMS Key](https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html) to support auto-unseal
 * TLS certificate with intermediate certs, certificate private key and CA certificate (required for privately signed cert)
 * Access to [Secrets Manager](https://aws.amazon.com/secrets-manager/) for initial secrets such as product license and TLS certificate material
+* (Optional) A [Route53 Hosted Zone](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zones-working-with.html) if using `create_route53_vault_dns_record`
 * AWS API credentials for Terraform to deploy:
   * AWS Autoscaling Group, Launch Template and Placement Group
   * AWS IAM Roles and Instance Profile
   * AWS Load Balancer, Listener and Target Group
   * AWS Security Group and Security Group Rules
 
+## Supported operating systems
+
+This module supports the following Linux distributions via the `ec2_os_distro` variable:
+
+| Distribution | Value | AMI source |
+|--------------|-------|------------|
+| Ubuntu 22.04 LTS | `ubuntu` (default) | Canonical |
+| RHEL 9 | `rhel` | Red Hat |
+| Amazon Linux 2023 | `al2023` | Amazon |
+| CentOS | `centos` | Custom AMI required |
+
+> **Note:** For CentOS deployments, you must provide a custom AMI ID via `vm_image_id`.
+
+## Architecture support
+
+This module supports both x86_64 (amd64) and ARM64 (aarch64) instances. The install script automatically detects the system architecture and downloads the appropriate Vault binary.
+
 ## Deployment
 
-Upon first deployment, Vault servers will auto-join and form a fresh cluster. The cluster will be in an uninitialized, sealed state. An operator must then connect to the cluster to initialize Vault. If auto-unseal is used via AWS KMS, the Vault nodes will automatically unseal upon initialization. If the Shamir seal is used, the operator must manually unseal each node.
+Upon first deployment, Vault servers will auto-join and form a fresh cluster. The cluster will be in an uninitialized, sealed state. An operator must then connect to the cluster to initialize Vault. If auto-unseal is used via AWS KMS, the Vault nodes will automatically unseal upon initialization. If the Shamir seal is used, the operator must manually unseal each node
 
-## Deployment options
+### Next steps
+
+* <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#check-the-status-of-vault>
+* <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#initialize-vault>
+* <https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-deployment-guide#unseal-vault>
+
+### Deployment options
 
 see [Deployment customizations](./docs/vault-deployment-customizations.md)
 
-## Examples
+### Examples
 
 Example deployment scenarios can be found in the [`examples`](./examples) directory of this repo. These examples cover multiple capabilities of the module and are meant to serve as a starting point for operators.
 
-## Troubleshooting
+### Troubleshooting
 
-During deployment the output of the `user_data` script can be traced in `/var/log/cloud-init.log`, `/var/log/cloud-init-output.log` and `/var/log/vault-cloud-init.log` due to `set -xeuo pipefail` in the default  `install-vault.sh.tpl`
-For help debugging cloud init and user data scripts
-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html#userdata-linux>
-- <https://cloudinit.readthedocs.io/en/latest/howto/debugging.html#cloud-init-ran-but-didn-t-do-what-i-want-it-to>
-
+see [Deployment Troubleshooting](./docs/vault-deployment-troubleshooting.md)
 
 ## Module support
 
 This open source software is maintained by the HashiCorp Technical Field Organization, independently of our enterprise products. While our Support Engineering team provides dedicated support for our enterprise offerings, this open source software is not included.
 
-- For help using this open source software, please engage your account team.
-- To report bugs/issues with this open source software, please open them directly against this code repository using the GitHub issues feature.
+* For help using this open source software, please engage your account team.
+* To report bugs/issues with this open source software, please open them directly against this code repository using the GitHub issues feature.
 
 Please note that there is no official Service Level Agreement (SLA) for support of this software as a HashiCorp customer. This software falls under the definition of Community Software/Versions in your Agreement. We appreciate your understanding and collaboration in improving our open source projects.
 
