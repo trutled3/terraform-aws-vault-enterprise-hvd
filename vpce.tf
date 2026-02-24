@@ -1,5 +1,3 @@
-data "aws_region" "current" {}
-
 resource "aws_vpc_endpoint" "ssm" {
   vpc_id              = var.net_vpc_id
   service_name        = "com.amazonaws.${data.aws_region.current.name}.ssm"
