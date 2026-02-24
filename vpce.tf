@@ -37,7 +37,7 @@ resource "aws_security_group_rule" "vpc_endpoints_ingress" {
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.main.id
+  source_security_group_id = aws_security_group.main[0].id
   security_group_id        = aws_security_group.vpc_endpoints.id
   description              = "Allow HTTPS from main security group"
 }
