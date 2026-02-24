@@ -8,7 +8,7 @@ resource "aws_vpc_endpoint" "ssm" {
 
   tags = merge(
     var.resource_tags,
-    { Name = "${var.friendly_name_prefix}-ec2messages-vpce" }
+    { Name = "${var.friendly_name_prefix}-ssm-vpce" }
   )
 }
 
@@ -22,7 +22,7 @@ resource "aws_vpc_endpoint" "ssmmessages" {
 
   tags = merge(
     var.resource_tags,
-    { Name = "${var.friendly_name_prefix}-ec2messages-vpce" }
+    { Name = "${var.friendly_name_prefix}-ssmmessages-vpce" }
   )
 }
 
