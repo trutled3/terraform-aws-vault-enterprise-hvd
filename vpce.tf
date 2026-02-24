@@ -41,13 +41,13 @@ resource "aws_vpc_endpoint" "ec2messages" {
 }
 
 resource "aws_security_group" "vpc_endpoints" {
-  name        = format("%s-vpce-sg", var.friendly_name_prefix)
+  name        = "${var.friendly_name_prefix}-vpce-sg"
   description = "Security group for Vault VPC endpoints"
   vpc_id      = var.net_vpc_id
 
   tags = merge(
     var.resource_tags,
-    { Name = "${var.friendly_name_prefix}-ec2messages-vpce" }
+    { Name = "${var.friendly_name_prefix}-vpce-sg" }
   )
 }
 
