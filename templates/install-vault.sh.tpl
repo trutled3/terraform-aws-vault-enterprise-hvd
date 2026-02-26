@@ -16,6 +16,7 @@ VAULT_GROUP="${vault_group_name}"
 # VAULT_INSTALL_URL="$${vault_install_url}"
 PRODUCT="vault"
 VAULT_VERSION="${vault_version}"
+VAULT_AUTOPILOT_UPGRADE_VERSION="${vault_autopilot_upgrade_version}"
 VERSION=$VAULT_VERSION
 REQUIRED_PACKAGES="unzip"
 ADDITIONAL_PACKAGES="${additional_package_names}"
@@ -302,6 +303,7 @@ storage "raft" {
   performance_multiplier = ${vault_raft_performance_multiplier}
 
   autopilot_redundancy_zone = "$AVAILABILITY_ZONE"
+  autopilot_upgrade_version = "$VAULT_AUTOPILOT_UPGRADE_VERSION"
 
   retry_join {
     auto_join        = "provider=aws region=$REGION tag_key=${auto_join_tag_key} tag_value=${auto_join_tag_value} addr_type=private_v4"
