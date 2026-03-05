@@ -12,35 +12,56 @@ data "aws_kms_key" "vault_unseal" {
   key_id = var.vault_seal_awskms_key_arn
 }
 
+
+
 #------------------------------------------------------------------------------
 # EC2 AMI data sources
 #------------------------------------------------------------------------------
-data "aws_ami" "ubuntu" {
-  count = var.ec2_os_distro == "ubuntu" && var.vm_image_id == null ? 1 : 0
 
-  owners      = ["099720109477", "513442679011"]
-  most_recent = true
+# Example: Fetching the latest approved Ubuntu 24.04 AMI
+data "aws_ami" "hc_base_ubuntu_2404" {
+  count = var.ec2_os_distro == "ubuntu" && var.vm_image_id == null ? 1 : 0
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+    values = ["hc-base-ubuntu-2404-amd64-*"]
   }
 
   filter {
     name   = "state"
     values = ["available"]
   }
+
+  most_recent = true
+  owners      = ["888995627335"] # ami-prod account
 }
+
+# data "aws_ami" "ubuntu" {
+#   count = var.ec2_os_distro == "ubuntu" && var.vm_image_id == null ? 1 : 0
+
+#   owners      = ["099720109477", "513442679011"]
+#   most_recent = true
+
+#   filter {
+#     name   = "name"
+#     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+#   }
+
+#   filter {
+#     name   = "architecture"
+#     values = ["x86_64"]
+#   }
+
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+
+#   filter {
+#     name   = "state"
+#     values = ["available"]
+#   }
+# }
 
 data "aws_ami" "rhel" {
   count = var.ec2_os_distro == "rhel" && var.vm_image_id == null ? 1 : 0
@@ -104,7 +125,7 @@ locals {
   // use the latest AMI for the specified OS distro via `var.ec2_os_distro`.
   ami_id_list = tolist([
     var.vm_image_id,
-    join("", data.aws_ami.ubuntu.*.image_id),
+    join("", data.aws_ami.hc_base_ubuntu_2404.*.image_id),
     join("", data.aws_ami.rhel.*.image_id),
     join("", data.aws_ami.al2023.*.image_id),
   ])
